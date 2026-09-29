@@ -1,26 +1,239 @@
 @import "tailwindcss";
 
 :root {
+  --primary: #ff3131;
+  --primary-dark: #003e48;
+  --primary-darker: #001f26;
+  --primary-hover: #ff7f50;
+  --secondary: #ff7f50;
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #001f26;
+  
+  --font-inter: var(--font-inter);
+  --font-literata: var(--font-literata);
 }
 
-@theme inline {
+@theme {
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-primary-darker: var(--primary-darker);
+  --color-primary-hover: var(--primary-hover);
+  --color-secondary: var(--secondary);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui;
+  --font-serif: var(--font-literata), ui-serif, Georgia;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    border-radius: 0;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif font-bold tracking-tight;
+  }
+
+  body {
+    @apply bg-white text-slate-800 font-sans antialiased text-[1.0625rem];
+    font-feature-settings: "rlig" 1, "calt" 1;
+    letter-spacing: -0.011em;
+  }
+
+  a {
+    @apply !no-underline;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-white px-6 py-3 font-semibold transition-all duration-300 hover:bg-[#ff7f50] hover:text-white active:scale-[0.98];
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary text-white px-6 py-3 font-semibold transition-all duration-300 hover:bg-[#e66c42] active:scale-[0.98];
+  }
+
+ .nav-link {
+  @apply relative font-medium transition-colors duration-300;
+}
+
+.nav-link::after {
+  content: '';
+  @apply absolute bottom-[-4px] left-0 h-[2px] w-0 transition-all duration-300;
+}
+
+.nav-link:hover::after {
+  @apply w-full;
+}
+}
+
+/* 📝 Rich Text Typography (Manual Prose) */
+.prose {
+  color: #334155; /* Slate 700 */
+}
+
+.prose p {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+}
+
+.prose h1, .prose h2, .prose h3 {
+  color: #0f172a; /* Slate 900 */
+  font-weight: 800;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  line-height: 1.1;
+}
+
+.prose h1 { font-size: 2.25em; }
+.prose h2 { font-size: 1.5em; }
+.prose h3 { font-size: 1.25em; }
+
+.prose a {
+  color: var(--primary);
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.prose img {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+/* Custom Minimalist Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Institutional Image Standards */
+.standard-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.aspect-institutional-banner {
+  aspect-ratio: 21 / 9;
+}
+
+.aspect-institutional-video {
+  aspect-ratio: 16 / 9;
+}
+
+.aspect-institutional-portrait {
+  aspect-ratio: 4 / 5;
+}
+
+.aspect-institutional-card {
+  aspect-ratio: 4 / 3;
+}
+
+/* ♿ Accessibility States (Institutional Standard) */
+.theme-high-contrast {
+  --primary: #ffff00 !important;
+  --secondary: #00ffff !important;
+  --background: #000000 !important;
+  --foreground: #ffffff !important;
+}
+
+.theme-high-contrast body, 
+.theme-high-contrast .bg-white,
+.theme-high-contrast .bg-slate-50,
+.theme-high-contrast .bg-slate-50\/30,
+.theme-high-contrast .bg-slate-50\/40,
+.theme-high-contrast section,
+.theme-high-contrast div:not([class*="bg-primary"]) {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+.theme-high-contrast * {
+  border-color: #ffffff !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+.theme-high-contrast a, 
+.theme-high-contrast button {
+  color: #ffff00 !important;
+  text-decoration: underline !important;
+  border: 1px solid #ffff00 !important;
+}
+
+.theme-high-contrast .text-primary-dark,
+.theme-high-contrast .text-slate-900,
+.theme-high-contrast .text-slate-800,
+.theme-high-contrast .text-slate-700,
+.theme-high-contrast .text-slate-500,
+.theme-high-contrast .text-slate-400,
+.theme-high-contrast .text-primary {
+  color: #ffffff !important;
+}
+
+/* Dyslexic Font Mode */
+.font-dyslexic {
+  font-family: 'OpenDyslexic', 'Comic Sans MS', sans-serif !important;
+  letter-spacing: 0.08em !important;
+  word-spacing: 0.15em !important;
+  line-height: 1.8 !important;
+}
+
+.font-dyslexic * {
+  font-family: inherit !important;
+}
+
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: url('https://cdn.jsdelivr.net/npm/opendyslexic@1.0.3/OpenDyslexic-Regular.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Extra font scaling utilities */
+html.text-lg { font-size: 115% !important; }
+html.text-xl { font-size: 130% !important; }
+
+/* 🌐 Google Translate Premium Interface */
+.goog-te-gadget {
+  font-family: inherit !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  display: block !important;
+}
+
+.goog-te-gadget .goog-te-combo {
+  width: 100% !important;
+  min-height: 38px !important;
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  padding: 8px 12px !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  color: #001f26 !important;
+  outline: none !important;
+}
+
+@keyframes ken-burns {
+  from { transform: scale(1);   }
+  to   { transform: scale(1.08); }
+}
+
+.animate-ken-burns {
+  animation: ken-burns 6s ease-out forwards;
 }
