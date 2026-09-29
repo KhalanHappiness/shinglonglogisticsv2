@@ -32,7 +32,7 @@ export default function Header() {
       <div className="bg-white">
         <div className="mx-auto flex max-w-7xl items-center gap-8 px-6 py-3">
           <Link href="/" className="flex items-center gap-2 text-sm font-semibold text-primary">
-            <img src="/images/ouklogo.png" alt="OUK Logo" className="flex h-8 items-center justify-center" />
+            <img src="/images/shinglong-logo.png" alt="Shinglong Logo" className="flex h-15 items-center justify-center" />
           </Link>
 
           {/* Desktop nav */}
