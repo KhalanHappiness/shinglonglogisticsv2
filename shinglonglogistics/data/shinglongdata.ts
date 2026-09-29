@@ -99,19 +99,11 @@ export interface PlanningInfrastructureContent {
 
 export const mainNav: NavItem[] = [
   {
-    label: "About Us",
-    href: "/about",
-    children: [
-      { label: "Overview", href: "/about" },
-      { label: "Leadership", href: "/about/leadership" },
-      { label: "Mandate", href: "/about/mandate" },
-    ],
-  },
-  { label: "Planning & Strategy", href: "/strategic-planning" },
-  { label: "Projects & Initiatives", href: "/infrastructure-projects" },
-  { label: "Facilities Management", href: "/facilities-management" },
-  { label: "Procurement & Tenders", href:"/procurement-tenders" },
-  { label: "News & Updates", href:"/news-events"},
+    label: "About Us", href: "/about"},
+  { label: "Our Services", href: "/services" },
+  { label: "News & Updates", href: "/news" },
+  { label: "Contact Us", href: "/contact" },
+  
 ];
 export const planningInfrastructure: PlanningInfrastructureContent = {
   slug: "planning-infrastructure",
