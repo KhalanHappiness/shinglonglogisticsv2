@@ -15,14 +15,13 @@ export default function Footer() {
           <div>
             <div className="mb-3 flex flex-col sm:flex-row items-start sm:items-center gap-3">
               <img
-                src="/images/logo_footer.png"
-                alt="OUK Logo"
+                src="/images/shinglong-logo.png"
+                alt="Shinglong Logo"
                 className="h-20 w-24 rounded-lg bg-white object-contain shrink-0"
               />
               <div>
-                <p className="text-base font-bold leading-tight tracking-widest">Planning and</p>
-                <p className="text-base font-bold leading-tight tracking-widest">Infrastructure</p>
-                <p className="mt-1 text-sm text-white/70">{pi.tagline}</p>
+                <p className="text-base font-bold leading-tight tracking-widest">Shinglong Logistics</p>
+                
               </div>
             </div>
             <p className="text-sm text-white/70">{footer.address[0]}</p>

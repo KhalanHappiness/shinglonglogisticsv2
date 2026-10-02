@@ -206,15 +206,14 @@ export const planningInfrastructure: PlanningInfrastructureContent = {
   },
 
   footer: {
-    address: ["Free Faculty, Silicon Savanna, Konza Technopolis", "P.O. Box 3000 - 90000 Nairobi, Kenya"],
-    email: "pi@ouk.ac.ke",
-    phone: "0800 000 111 / 112",
+    address: ["Aksharap Complex", "Nairobi, Kenya"],
+    email: "info@shinglonglogistics.com",
+    phone: "0724032270",
     quickLinks: [
-      { label: "Strategic Plan", href: "#" },
-      { label: "Ongoing Projects", href: "#" },
-      { label: "Reports & Resources", href: "#" },
+      { label: "About Us", href: "#" },
+      { label: "Our Services", href: "#" },
+      { label: "Latest News", href: "#" },
       { label: "Partnerships", href: "#" },
-      { label: "Resources & Downloads", href: "#" },
     ],
     relatedUnits: [
       { label: "Facilities Management", href: "#" },
