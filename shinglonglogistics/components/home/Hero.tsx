@@ -91,7 +91,7 @@ export default function Hero({ hero }: HeroProps) {
             text-white transition-all duration-500 ease-out
             ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
         >
-          <h1 className="text-4xl font-extrabold tracking-wide sm:text-4xl md:text-5xl lg:text-6xl font-serif">
+          <h1 className="text-4xl font-extrabold tracking-wide sm:text-4xl md:text-5xl lg:text-6xl font-serif bg:primary">
             {hero.heading}
           </h1>
           <p className="mt-3 text-sm leading-relaxed text-slate-100 sm:mt-4 md:text-base max-w-xl">
@@ -99,7 +99,7 @@ export default function Hero({ hero }: HeroProps) {
           </p>
           <a
             href={hero.cta.href}
-            className="btn-secondary mt-5 inline-flex w-fit items-center text-sm"
+            className="btn-primary mt-5 inline-flex w-fit items-center text-sm"
           >
             {hero.cta.label}
           </a>

@@ -115,11 +115,11 @@ export const planningInfrastructure: PlanningInfrastructureContent = {
     heading: "Planning today, building tomorrow, transforming the future",
     description:
       "We steer OUK's institutional strategy, campus infrastructure, and long-term sustainablilty turning master plans into the physical and digital foundations of Kenya's leading open uninversity",
-    cta: { label: "Download Strategic Plan", href: "/downloads/strategic-plan.pdf" },
+    cta: { label: "Learn More", href: "#" },
     images: [
-      "/hero/hero1.jpg",
-      "/hero/hero5.jpg",
-      "/hero/hero2.jpg",
+      "/images/AirTransportation.jpg",
+      "/images/SeaTransportation.jpg",
+      "/images/allTransportation.jpg",
     ],
   },
 
