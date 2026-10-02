@@ -16,18 +16,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-white">
-      {/* Utility bar */}
-      <div className="border-b border-slate-100 bg-white">
-        <div className="mx-auto flex max-w-7xl items-center justify-end gap-6 px-6 py-2 text-xs text-slate-500">
-          <Link href="/sign-in" className="hover:text-primary">Sign In</Link>
-          <Link href="/contact" className="hover:text-primary">Contact OUK</Link>
-          <Link href="/accessibility" className="hover:text-primary">Accessibility Hub</Link>
-          <button aria-label="Search the site" className="hover:text-primary">
-            Search the Site
-          </button>
-        </div>
-      </div>
-
+      
       {/* Main nav */}
       <div className="bg-white">
         <div className="mx-auto flex max-w-7xl items-center gap-8 px-6 py-3">
