@@ -112,9 +112,9 @@ export const planningInfrastructure: PlanningInfrastructureContent = {
 
   hero: {
     eyebrow: "Planning",
-    heading: "Planning today, building tomorrow, transforming the future",
+    heading: "Your Trusted Shipping and Freight Forwarding Partner",
     description:
-      "We steer OUK's institutional strategy, campus infrastructure, and long-term sustainablilty turning master plans into the physical and digital foundations of Kenya's leading open uninversity",
+      "Sea Freight, Air Freight and end-to-end customs clearance between Guangzhou, Yiwu and Nairobi, Trusted by businesses across Kenya",
     cta: { label: "Learn More", href: "#" },
     images: [
       "/images/AirTransportation.jpg",
