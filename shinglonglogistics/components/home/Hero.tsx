@@ -1,16 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import type { HeroContent } from "@/data/shinglongdata";
 
-import { Ship, Plane, Truck, TrainFront } from "lucide-react";
+import { Ship, Plane, Truck } from "lucide-react";
 
 const tiles = [
   { label: "Sea", title: "Freight", Icon: Ship },
   { label: "Air", title: "Freight", Icon: Plane },
   { label: "Road", title: "Freight", Icon: Truck },
-  { label: "Rail", title: "Freight", Icon: TrainFront },
 ];
 
 interface HeroProps {
@@ -23,10 +22,13 @@ export default function Hero({ hero }: HeroProps) {
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(true);
   const total = hero.images.length;
+  const transitionTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const goTo = (next: number) => {
+    // Cancel any pending transition so rapid clicks don't queue up slides
+    if (transitionTimer.current) clearTimeout(transitionTimer.current);
     setVisible(false);
-    setTimeout(() => {
+    transitionTimer.current = setTimeout(() => {
       setIndex(next);
       setVisible(true);
     }, 400);
@@ -38,11 +40,17 @@ export default function Hero({ hero }: HeroProps) {
   useEffect(() => {
     const timer = setTimeout(() => goTo((index + 1) % total), 6000);
     return () => clearTimeout(timer);
-  }, [index]);
+  }, [index, total]);
+
+  useEffect(() => {
+    return () => {
+      if (transitionTimer.current) clearTimeout(transitionTimer.current);
+    };
+  }, []);
 
   return (
     <section className="relative w-full overflow-hidden ">
-      <div className="relative min-h-screen w-full overflow-hidden bg-primary-darker">
+      <div className="relative min-h-[calc(100vh-80px)] w-full overflow-hidden bg-primary-darker">
 
         {/* Image — sliced into strips that shutter open on each slide change */}
         <div key={index} className="absolute inset-0 flex">
@@ -66,7 +74,8 @@ export default function Hero({ hero }: HeroProps) {
                   src={hero.images[index]}
                   alt=""
                   fill
-                  priority
+                  loading="eager"
+                  fetchPriority="high"
                   className="object-cover object-center"
                 />
               </div>
@@ -100,7 +109,7 @@ export default function Hero({ hero }: HeroProps) {
                 text-white transition-all duration-500 ease-out
                 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
             >
-            <h1 className="text-4xl font-extrabold tracking-wide sm:text-4xl md:text-5xl lg:text-6xl font-serif">
+            <h1 className="text-4xl font-extrabold tracking-wide sm:text-4xl md:text-5xl lg:text-6xl">
                 {hero.heading}
             </h1>
             <p className="mt-3 text-sm leading-relaxed text-slate-100 sm:mt-4 md:text-base max-w-xl">
@@ -108,10 +117,35 @@ export default function Hero({ hero }: HeroProps) {
             </p>
             <a
                 href={hero.cta.href}
-                className="btn-primary mt-5 inline-flex w-fit items-center text-sm border-radius-5"
+                className="btn-primary mt-5 inline-flex w-fit items-center text-sm rounded-[5px]"
             >
                 {hero.cta.label}
             </a>
+        </div>
+
+
+        {/* Service tiles */}
+        <div className="absolute inset-x-0 bottom-0 z-20">
+        <div className="mx-auto grid max-w-5xl grid-cols-3 gap-px px-0 md:gap-2 md:px-6">
+            {tiles.map(({ label, title, Icon }, i) => (
+            <button
+                key={label}
+                onClick={() => i < total && goTo(i)}
+                className={`group flex flex-col items-center gap-1 border-t-2 bg-primary-darker/95 px-2 py-3 text-center backdrop-blur transition-colors hover:bg-primary-darker md:flex-row md:gap-4 md:px-6 md:py-6 md:text-left ${
+                index === i ? "border-primary" : "border-transparent"
+                }`}
+            >
+                <Icon
+                className="h-6 w-6 shrink-0 text-white/70 transition-colors group-hover:text-white md:h-10 md:w-10"
+                strokeWidth={1.25}
+                />
+                <span className="leading-tight">
+                <span className="block text-[11px] text-primary md:text-sm">{label}</span>
+                <span className="block text-xs font-medium text-white md:text-base">{title}</span>
+                </span>
+            </button>
+            ))}
+        </div>
         </div>
 
         {/* Carousel controls — smaller on mobile */}
@@ -130,32 +164,10 @@ export default function Hero({ hero }: HeroProps) {
           ›
         </button>
 
-        {/* Service tiles */}
-<div className="absolute inset-x-0 bottom-0 z-20 hidden md:block">
-  <div className="mx-auto grid max-w-6xl grid-cols-4 gap-2 px-6">
-    {tiles.map(({ label, title, Icon }, i) => (
-      <button
-        key={label}
-        onClick={() => i < total && goTo(i)}
-        className={`group flex items-center gap-4 border-t-2 bg-primary-darker/95 px-8 py-10 text-left backdrop-blur transition-colors hover:bg-primary-darker ${
-          index === i ? "border-primary" : "border-transparent"
-        }`}
-      >
-        <Icon
-          className="h-10 w-10 shrink-0 text-white/70 transition-colors group-hover:text-white"
-          strokeWidth={1.25}
-        />
-        <span className="leading-tight">
-          <span className="block text-sm text-primary">{label}</span>
-          <span className="block text-base font-medium text-white">{title}</span>
-        </span>
-      </button>
-    ))}
-  </div>
-</div>
+        
 
         {/* Dots */}
-        <div className="absolute bottom-36 left-1/2 z-10 flex -translate-x-1/2 gap-1.5">
+        <div className="absolute bottom-36 left-1/2 z-15 flex -translate-x-1/2 gap-1.5">
           {hero.images.map((_, i) => (
             <span
               key={i}

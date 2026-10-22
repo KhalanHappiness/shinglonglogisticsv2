@@ -8,9 +8,6 @@
   --secondary: #163259;
   --background: #ffffff;
   --foreground: #001f26;
-  
-  --font-inter: var(--font-inter);
-  --font-literata: var(--font-literata);
 }
 
 @theme {
@@ -22,8 +19,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui;
-  --font-serif: var(--font-literata), ui-serif, Georgia;
+  --font-sans: var(--font-ibm-plex-sans), ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
@@ -32,7 +28,7 @@
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-serif font-bold tracking-tight;
+    @apply font-sans font-bold tracking-tight;
   }
 
   body {
@@ -61,7 +57,7 @@
 
 .nav-link::after {
   content: '';
-  @apply absolute bottom-[-4px] left-0 h-[2px] w-0 transition-all duration-300;
+  @apply absolute bottom-[-4px] left-0 h-[2px] w-0 bg-current transition-all duration-300;
 }
 
 .nav-link:hover::after {

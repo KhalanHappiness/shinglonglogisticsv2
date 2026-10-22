@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { mainNav } from "@/data/shinglongdata";
 
@@ -21,7 +22,7 @@ export default function Header() {
       <div className="bg-white">
         <div className="mx-auto flex max-w-7xl items-center gap-8 px-6 py-3">
           <Link href="/" className="flex items-center gap-2 text-sm font-semibold text-primary">
-            <img src="/images/shinglong-logo.png" alt="Shinglong Logo" className="flex h-15 items-center justify-center" />
+            <Image src="/images/shinglong-logo.png" alt="Shinglong Logo" width={500} height={500} loading="eager" className="h-15 w-auto" />
           </Link>
 
           {/* Desktop nav */}
@@ -98,7 +99,7 @@ export default function Header() {
             aria-label={isOpen ? "Close menu" : "Open menu"}
             aria-expanded={isOpen}
             onClick={() => setIsOpen((v) => !v)}
-            className="ml-auto flex h-9 w-9 items-center justify-center text-promary md:hidden"
+            className="ml-auto flex h-9 w-9 items-center justify-center text-primary md:hidden"
           >
             {isOpen ? (
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

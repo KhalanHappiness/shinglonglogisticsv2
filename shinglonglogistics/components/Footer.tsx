@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { planningInfrastructure as pi } from "@/data/shinglongdata";
 
 const socials = ["facebook", "twitter", "instagram", "linkedin", "youtube"] as const;
@@ -14,9 +15,11 @@ export default function Footer() {
           {/* Department card */}
           <div>
             <div className="mb-3 flex flex-col sm:flex-row items-start sm:items-center gap-3">
-              <img
+              <Image
                 src="/images/shinglong-logo.png"
                 alt="Shinglong Logo"
+                width={500}
+                height={500}
                 className="h-20 w-24 rounded-lg bg-white object-contain shrink-0"
               />
               <div>
@@ -77,7 +80,7 @@ export default function Footer() {
 
         {/* Copyright row */}
         <div className="flex flex-col items-center justify-between gap-2 pt-6 text-xs text-white/50 md:flex-row">
-          <p>© 2026 Open University of Kenya. All Rights Reserved.</p>
+          <p>© 2026 Shinglong Logistics. All Rights Reserved.</p>
           <div className="flex flex-wrap justify-center gap-4 md:justify-end">
             <Link href="/privacy" className="hover:text-white">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-white">Terms & Conditions</Link>

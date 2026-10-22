@@ -117,8 +117,9 @@ export const planningInfrastructure: PlanningInfrastructureContent = {
       "Sea Freight, Air Freight and end-to-end customs clearance between Guangzhou, Yiwu and Nairobi, Trusted by businesses across Kenya",
     cta: { label: "Learn More", href: "#" },
     images: [
-      "/images/AirTransportation.jpg",
+      // Order matches the hero tiles: Sea, Air, Road
       "/images/SeaTransportation.jpg",
+      "/images/AirTransportation.jpg",
       "/images/allTransportation.jpg",
     ],
   },
