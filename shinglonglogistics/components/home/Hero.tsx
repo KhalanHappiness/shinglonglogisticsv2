@@ -50,7 +50,7 @@ export default function Hero({ hero }: HeroProps) {
 
   return (
     <section className="relative w-full overflow-hidden ">
-      <div className="relative min-h-[calc(100vh-80px)] w-full overflow-hidden bg-primary-darker">
+      <div className="relative min-h-[calc(100vh-84px)] md:min-h-[calc(100vh-124px)] w-full overflow-hidden bg-primary-darker">
 
         {/* Image — sliced into strips that shutter open on each slide change */}
         <div key={index} className="absolute inset-0 flex">
@@ -117,7 +117,7 @@ export default function Hero({ hero }: HeroProps) {
             </p>
             <a
                 href={hero.cta.href}
-                className="btn-primary mt-5 inline-flex w-fit items-center text-sm rounded-[5px]"
+                className="btn-primary mt-5 w-fit text-sm"
             >
                 {hero.cta.label}
             </a>

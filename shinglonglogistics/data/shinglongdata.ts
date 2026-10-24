@@ -224,3 +224,449 @@ export const planningInfrastructure: PlanningInfrastructureContent = {
     ],
   },
 };
+
+// ---------------------------------------------------------------------------
+// Home page sections (below the hero)
+// Items marked TODO are placeholders — replace them with real figures,
+// people and testimonials before the site goes live.
+// ---------------------------------------------------------------------------
+
+export type HomeIcon =
+  | "globe"
+  | "headset"
+  | "clock"
+  | "ship"
+  | "plane"
+  | "truck"
+  | "users"
+  | "map"
+  | "package"
+  | "shield"
+  | "file"
+  | "route";
+
+export interface CtaLink {
+  label: string;
+  href: string;
+}
+
+export interface SectionIntro {
+  eyebrow: string;
+  heading: string;
+  description?: string;
+}
+
+export interface IconItem {
+  icon: HomeIcon;
+  title: string;
+  description: string;
+}
+
+export interface StatItem {
+  icon: HomeIcon;
+  value: number;
+  suffix?: string;
+  label: string;
+}
+
+export interface ServiceItem {
+  title: string;
+  description: string;
+  image: string;
+  href: string;
+}
+
+export interface TrackingStep {
+  label: string;
+  location: string;
+  done: boolean;
+}
+
+export interface SkillItem {
+  label: string;
+  percent: number;
+}
+
+export interface TeamMember {
+  name: string;
+  role: string;
+  bio: string;
+}
+
+export interface Testimonial {
+  quote: string;
+  author: string;
+  company: string;
+}
+
+export interface NewsPost {
+  title: string;
+  category: string;
+  date: string;
+  image: string;
+  href: string;
+}
+
+export interface HomeContent {
+  advantages: SectionIntro & { items: IconItem[]; cta: CtaLink };
+  about: SectionIntro & {
+    lead: string;
+    leadHighlight: string;
+    body: string;
+    image: string;
+    primaryCta: CtaLink;
+    secondaryCta: CtaLink;
+  };
+  stats: StatItem[];
+  services: SectionIntro & { items: ServiceItem[] };
+  tracking: SectionIntro & {
+    shipmentLabel: string;
+    steps: TrackingStep[];
+    primaryCta: CtaLink;
+    secondaryCta: CtaLink;
+  };
+  strengths: SectionIntro & { image: string; skills: SkillItem[]; cta: CtaLink };
+  features: IconItem[];
+  team: SectionIntro & { members: TeamMember[] };
+  testimonials: SectionIntro & { items: Testimonial[] };
+  news: SectionIntro & { posts: NewsPost[]; cta: CtaLink };
+  quote: SectionIntro & {
+    image: string;
+    recipient: string;
+    transportTypes: string[];
+    origins: string[];
+  };
+  ctaBand: { heading: string; description: string; cta: CtaLink };
+}
+
+// ---------------------------------------------------------------------------
+// Services catalogue — drives /services, /services/[slug] and the home cards
+// ---------------------------------------------------------------------------
+
+export interface Service {
+  slug: string;
+  icon: HomeIcon;
+  title: string;
+  summary: string;
+  image: string;
+  intro: string[];
+  includes: string[];
+  idealFor: string[];
+}
+
+export const services: Service[] = [
+  {
+    slug: "sea-freight",
+    icon: "ship",
+    title: "Sea Freight",
+    summary:
+      "Cost-effective container shipping for large or heavy consignments from China to Kenya.",
+    image: "/images/SeaTransportation.jpg",
+    intro: [
+      "Sea freight is the most economical way to move larger volumes of goods from China. We book space with reliable carriers, coordinate collection from your suppliers and keep you informed from loading to arrival.",
+      "If you don't have enough cargo to fill a container on your own, we can consolidate your goods with other shipments so you only pay for the space you use.",
+    ],
+    includes: [
+      "Collection from suppliers in Guangzhou, Yiwu and surrounding areas",
+      "Consolidation of goods from several suppliers into one shipment",
+      "Booking, loading and export documentation in China",
+      "Regular status updates while your cargo is at sea",
+      "Customs clearance and onward delivery in Kenya",
+    ],
+    idealFor: ["Bulk stock orders", "Heavy or bulky goods", "Shipments that aren't time-critical"],
+  },
+  {
+    slug: "air-freight",
+    icon: "plane",
+    title: "Air Freight",
+    summary:
+      "Fast air cargo for urgent, high-value or smaller consignments when time matters most.",
+    image: "/images/AirTransportation.jpg",
+    intro: [
+      "When goods are needed quickly, air freight gets them to Nairobi in a fraction of the time of sea shipping. It's a good fit for smaller, lighter or higher-value consignments.",
+      "We handle the booking, packaging checks and paperwork, then clear your goods on arrival so they reach you as soon as possible.",
+    ],
+    includes: [
+      "Collection and packaging checks at origin",
+      "Air cargo booking and export documentation",
+      "Shipment tracking from departure to arrival",
+      "Clearance on arrival in Nairobi",
+      "Delivery to your premises",
+    ],
+    idealFor: ["Urgent restocks", "Samples and small parcels", "High-value or fragile items"],
+  },
+  {
+    slug: "customs-clearance",
+    icon: "file",
+    title: "Customs Clearance",
+    summary:
+      "We prepare your import documents and clear your goods so they are released without delays.",
+    image: "/images/allTransportation.jpg",
+    intro: [
+      "Paperwork is where many imports get stuck. Our team prepares and checks your documents before your goods arrive, so clearance is as smooth as possible.",
+      "We'll explain the duties and charges that apply to your shipment up front, so there are no surprises when your cargo lands.",
+    ],
+    includes: [
+      "Review of invoices, packing lists and supporting documents",
+      "Preparation and submission of import declarations",
+      "Duty and tax estimates before your goods arrive",
+      "Liaison with the relevant authorities on your behalf",
+      "Release of your goods for delivery",
+    ],
+    idealFor: ["First-time importers", "Shipments with mixed goods", "Businesses that want one point of contact"],
+  },
+  {
+    slug: "door-to-door-delivery",
+    icon: "truck",
+    title: "Door-to-Door Delivery",
+    summary:
+      "One service from your supplier's door to yours, with road transport for the final leg.",
+    image: "/images/allTransportation.jpg",
+    intro: [
+      "Door-to-door delivery brings everything together: collection in China, shipping by sea or air, customs clearance and road delivery to your shop, warehouse or office.",
+      "You deal with a single team for the whole journey, and we keep you updated at every handover.",
+    ],
+    includes: [
+      "Collection from your supplier in China",
+      "Sea or air shipping, depending on your budget and timeline",
+      "Customs clearance in Kenya",
+      "Road transport to your chosen address",
+      "Proof of delivery once your goods arrive",
+    ],
+    idealFor: ["Traders without a clearing agent", "Regular repeat shipments", "Anyone who wants a hands-off service"],
+  },
+];
+
+// ---------------------------------------------------------------------------
+// News posts — drives /news, /news/[slug] and the home "Latest News" cards
+// TODO: review these articles (or replace with real ones) before launch
+// ---------------------------------------------------------------------------
+
+export interface NewsArticle {
+  slug: string;
+  title: string;
+  category: string;
+  date: string;
+  image: string;
+  excerpt: string;
+  body: string[];
+}
+
+export const newsPosts: NewsArticle[] = [
+  {
+    slug: "beginners-guide-to-importing-from-china",
+    title: "A Beginner's Guide to Importing from China to Kenya",
+    category: "Guides",
+    date: "2026-10-01",
+    image: "/images/SeaTransportation.jpg",
+    excerpt:
+      "Thinking about importing stock from China for the first time? Here's an overview of the steps involved, from finding a supplier to receiving your goods.",
+    body: [
+      "Importing from China can open up a wide range of products at competitive prices, but the process can feel overwhelming the first time. Breaking it down into clear steps makes it much easier to plan.",
+      "Start by agreeing clear terms with your supplier: what you're buying, the quantities, the price and when the goods will be ready. Ask for a proforma invoice and a packing list, as you'll need these later.",
+      "Next, decide how you want to ship. Sea freight is usually the most economical option for larger orders, while air freight suits smaller or urgent consignments. A freight forwarder can help you compare costs and timelines.",
+      "Before your goods arrive, make sure your import documents are in order and that you understand the duties and charges that will apply. Getting this right early is the best way to avoid delays at clearance.",
+      "Finally, plan the last leg: where the goods will be delivered and who will receive them. With a single partner handling the whole journey, you'll have one point of contact from start to finish.",
+    ],
+  },
+  {
+    slug: "sea-or-air-freight",
+    title: "Sea or Air Freight: Choosing the Right Option",
+    category: "Shipping",
+    date: "2026-09-18",
+    image: "/images/AirTransportation.jpg",
+    excerpt:
+      "Sea and air freight each have their strengths. We look at cost, speed and cargo type to help you choose the right option for each shipment.",
+    body: [
+      "Choosing between sea and air freight comes down to three things: how much you're shipping, how quickly you need it, and what your budget allows.",
+      "Sea freight is generally the better choice for larger or heavier shipments. It takes longer, but the cost per kilogram is much lower, which makes it ideal for bulk stock orders.",
+      "Air freight is faster and is often the right choice for urgent restocks, samples, or small but valuable items. It costs more per kilogram, so it's best kept for shipments where speed really matters.",
+      "Many businesses use both: regular stock comes by sea, while urgent top-ups go by air. If you're not sure which is right for a particular order, ask us for a quote on both and compare.",
+    ],
+  },
+  {
+    slug: "customs-documents-for-imports",
+    title: "Customs Documents You Need for Your Imports",
+    category: "Customs",
+    date: "2026-09-02",
+    image: "/images/allTransportation.jpg",
+    excerpt:
+      "Missing paperwork is one of the most common causes of clearance delays. Here are the documents to have ready before your shipment arrives.",
+    body: [
+      "Clearance goes much more smoothly when your paperwork is ready before your goods arrive. Most delays we see come down to missing or inconsistent documents.",
+      "At a minimum, you'll usually need a commercial invoice showing what you bought and what you paid, a packing list describing how the goods are packed, and the transport document issued for the shipment.",
+      "Some goods need extra certificates or permits. Requirements depend on the type of product, so check early if you're importing something for the first time.",
+      "Make sure the details match across all your documents: descriptions, quantities and values. Small differences can cause questions at clearance. If you're unsure, send your documents to us and we'll check them before your shipment arrives.",
+    ],
+  },
+];
+
+export const home: HomeContent = {
+  advantages: {
+    eyebrow: "Why Shinglong",
+    heading: "Why Businesses Ship With Us",
+    items: [
+      {
+        icon: "globe",
+        title: "Shipment Tracking",
+        description:
+          "Know where your cargo is from the moment it leaves your supplier in China until it reaches you in Nairobi.",
+      },
+      {
+        icon: "headset",
+        title: "Clear Communication",
+        description:
+          "One point of contact who keeps you updated on bookings, schedules and customs status in plain language.",
+      },
+      {
+        icon: "clock",
+        title: "Reliable Timelines",
+        description:
+          "Planned consolidation and departure schedules, so you can plan stock and sales around realistic arrival dates.",
+      },
+    ],
+    cta: { label: "Learn More", href: "/about" },
+  },
+
+  about: {
+    eyebrow: "Who We Are",
+    heading: "China to Kenya, Handled End to End",
+    lead: "From supplier pickup in Guangzhou and Yiwu to delivery in Nairobi,",
+    leadHighlight: "we take care of every step.",
+    body: "Shinglong Logistics consolidates, ships and clears cargo for traders and businesses across Kenya. We handle the paperwork, duties and coordination so you can focus on sourcing and selling.",
+    image: "/images/allTransportation.jpg",
+    primaryCta: { label: "Request a Quote", href: "/#quote" },
+    secondaryCta: { label: "Explore our services", href: "/services" },
+  },
+
+  // TODO: replace with real company figures
+  stats: [
+    { icon: "ship", value: 1200, suffix: "+", label: "Shipments delivered" },
+    { icon: "users", value: 500, suffix: "+", label: "Satisfied clients" },
+    { icon: "map", value: 2, label: "Sourcing hubs in China" },
+    { icon: "clock", value: 10, suffix: "+", label: "Years of experience" },
+  ],
+
+  services: {
+    eyebrow: "What We Do",
+    heading: "Our Services",
+    items: services.slice(0, 3).map((s) => ({
+      title: s.title,
+      description: s.summary,
+      image: s.image,
+      href: `/services/${s.slug}`,
+    })),
+  },
+
+  tracking: {
+    eyebrow: "Stay Informed",
+    heading: "Track Your Shipment",
+    description:
+      "Every consignment gets a reference number and regular status updates, from collection at the supplier to final delivery. Ask us any time and we'll tell you exactly where your goods are.",
+    shipmentLabel: "Example shipment · Guangzhou → Nairobi",
+    steps: [
+      { label: "Collected from supplier", location: "Guangzhou", done: true },
+      { label: "Consolidated & departed", location: "China", done: true },
+      { label: "Arrived at port", location: "Mombasa", done: true },
+      { label: "Customs cleared", location: "Kenya", done: false },
+      { label: "Delivered", location: "Nairobi", done: false },
+    ],
+    primaryCta: { label: "Track Shipment", href: "/contact" },
+    secondaryCta: { label: "Contact Us", href: "/contact" },
+  },
+
+  strengths: {
+    eyebrow: "Our Strengths",
+    heading: "What We Do Best",
+    description:
+      "We work closely with suppliers, carriers and clearing agents so nothing falls between the cracks.",
+    image: "/images/AirTransportation.jpg",
+    // TODO: replace with real performance figures
+    skills: [
+      { label: "Sea Freight", percent: 90 },
+      { label: "Air Freight", percent: 85 },
+      { label: "Clearance", percent: 80 },
+      { label: "Support", percent: 95 },
+    ],
+    cta: { label: "More About Us", href: "/about" },
+  },
+
+  features: [
+    {
+      icon: "package",
+      title: "Careful Handling",
+      description: "Goods are checked, packed and labelled before they are loaded.",
+    },
+    {
+      icon: "headset",
+      title: "Customer Support",
+      description: "Reach our team by phone or email whenever you need an update.",
+    },
+    {
+      icon: "clock",
+      title: "On-Time Delivery",
+      description: "Clear schedules and proactive updates if anything changes.",
+    },
+    {
+      icon: "shield",
+      title: "Secure Cargo",
+      description: "Documented at every handover so your goods are accounted for.",
+    },
+  ],
+
+  // TODO: replace with real team members (and add photos)
+  team: {
+    eyebrow: "Our People",
+    heading: "Meet the Team",
+    description:
+      "The people who coordinate your shipments between China and Kenya.",
+    members: [
+      { name: "Team Member", role: "Position", bio: "Add a short introduction for this team member." },
+      { name: "Team Member", role: "Position", bio: "Add a short introduction for this team member." },
+      { name: "Team Member", role: "Position", bio: "Add a short introduction for this team member." },
+    ],
+  },
+
+  // TODO: replace with real client testimonials (with their permission)
+  testimonials: {
+    eyebrow: "Client Stories",
+    heading: "What Our Clients Say",
+    items: [
+      { quote: "Add a real client testimonial here.", author: "Client Name", company: "Company" },
+      { quote: "Add a real client testimonial here.", author: "Client Name", company: "Company" },
+      { quote: "Add a real client testimonial here.", author: "Client Name", company: "Company" },
+    ],
+  },
+
+  // TODO: link these to real articles once the news section exists
+  news: {
+    eyebrow: "News & Updates",
+    heading: "Latest News",
+    posts: newsPosts.slice(0, 3).map((p) => ({
+      title: p.title,
+      category: p.category,
+      date: p.date,
+      image: p.image,
+      href: `/news/${p.slug}`,
+    })),
+    cta: { label: "View All News", href: "/news" },
+  },
+
+  quote: {
+    eyebrow: "Request",
+    heading: "A Free Shipping Quote",
+    description:
+      "Tell us what you're shipping and where it's coming from, and we'll get back to you with the best route and price.",
+    image: "/images/SeaTransportation.jpg",
+    recipient: "info@shinglonglogistics.com",
+    transportTypes: ["Sea Freight", "Air Freight", "Not sure yet"],
+    origins: ["Guangzhou", "Yiwu", "Other"],
+  },
+
+  ctaBand: {
+    heading: "Interested in working with Shinglong Logistics?",
+    description:
+      "Tell us what you're importing and we'll recommend the right service for your cargo and budget.",
+    cta: { label: "Get In Touch", href: "/contact" },
+  },
+};

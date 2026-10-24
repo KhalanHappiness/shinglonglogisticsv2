@@ -4,7 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { mainNav } from "@/data/shinglongdata";
+import { FileText, Mail, MapPin, Phone } from "lucide-react";
+import { mainNav, planningInfrastructure } from "@/data/shinglongdata";
+
+const { footer: contact } = planningInfrastructure;
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,7 +20,32 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-white">
-      
+
+      {/* Top bar — contact details + quote button (desktop only) */}
+      <div className="hidden bg-primary-darker text-xs text-white/75 md:block">
+        <div className="mx-auto flex h-10 max-w-7xl items-center gap-8 px-6">
+          <span className="flex items-center gap-2">
+            <MapPin className="h-3.5 w-3.5 text-primary" />
+            {contact.address.join(", ")}
+          </span>
+          <a href={`tel:${contact.phone}`} className="flex items-center gap-2 hover:text-white">
+            <Phone className="h-3.5 w-3.5 text-primary" />
+            {contact.phone}
+          </a>
+          <a href={`mailto:${contact.email}`} className="flex items-center gap-2 hover:text-white">
+            <Mail className="h-3.5 w-3.5 text-primary" />
+            {contact.email}
+          </a>
+          <Link
+            href="/#quote"
+            className="ml-auto flex h-full items-center gap-2 bg-primary px-5 font-semibold text-white transition-colors hover:bg-[#ff7f50]"
+          >
+            <FileText className="h-3.5 w-3.5" />
+            Request Quote
+          </Link>
+        </div>
+      </div>
+
       {/* Main nav */}
       <div className="bg-white">
         <div className="mx-auto flex max-w-7xl items-center gap-8 px-6 py-3">
