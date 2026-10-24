@@ -501,6 +501,81 @@ export const newsPosts: NewsArticle[] = [
   },
 ];
 
+// ---------------------------------------------------------------------------
+// Inner pages
+// ---------------------------------------------------------------------------
+
+export interface ProcessStep {
+  title: string;
+  description: string;
+}
+
+export interface PagesContent {
+  about: {
+    banner: { heading: string; highlight: string; image: string };
+    process: SectionIntro & { steps: ProcessStep[] };
+  };
+  services: { intro: string };
+  news: { supportBox: { heading: string; description: string; cta: CtaLink } };
+  contact: {
+    findUsHeading: string;
+    formHeading: string;
+    mapQuery: string;
+  };
+}
+
+export const pages: PagesContent = {
+  about: {
+    banner: {
+      heading: "Getting your cargo to Kenya",
+      highlight: "safely and on schedule",
+      image: "/images/SeaTransportation.jpg",
+    },
+    process: {
+      eyebrow: "How We Work",
+      heading: "From Order to Delivery in Four Steps",
+      description: "A simple process with one team looking after your shipment the whole way.",
+      steps: [
+        {
+          title: "Tell us what you're shipping",
+          description: "Share your supplier details, the goods and your timeline, and we'll recommend a route.",
+        },
+        {
+          title: "We collect & consolidate",
+          description: "We pick up from your suppliers in China and prepare your goods for shipping.",
+        },
+        {
+          title: "Shipping & clearance",
+          description: "Your cargo travels by sea or air, and we handle the paperwork for clearance in Kenya.",
+        },
+        {
+          title: "Delivered to your door",
+          description: "We deliver to your shop, warehouse or office and confirm once it has arrived.",
+        },
+      ],
+    },
+  },
+
+  services: {
+    intro:
+      "Whether you're importing a few cartons or a full container, we have a service to match your cargo, timeline and budget.",
+  },
+
+  news: {
+    supportBox: {
+      heading: "Have a question about your shipment?",
+      description: "Our team is happy to help with quotes, documents and shipment updates.",
+      cta: { label: "Get In Touch", href: "/contact" },
+    },
+  },
+
+  contact: {
+    findUsHeading: "Find Us",
+    formHeading: "Send Us a Message",
+    mapQuery: "Aksharap Complex, Nairobi, Kenya",
+  },
+};
+
 export const home: HomeContent = {
   advantages: {
     eyebrow: "Why Shinglong",
