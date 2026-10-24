@@ -47,7 +47,7 @@ export default function Footer() {
 
           {/* Related units */}
           <div>
-            <p className="mb-3 text-sm font-semibold text-white">Related Units</p>
+            <p className="mb-3 text-sm font-semibold text-white">Our Services</p>
             <ul className="space-y-2 text-sm text-white/70">
               {footer.relatedUnits.map((link) => (
                 <li key={link.label}>
