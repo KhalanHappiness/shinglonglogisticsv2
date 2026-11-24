@@ -2,27 +2,35 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import type { HeroContent } from "@/data/shinglongdata";
-
-import { Ship, Plane, FileCheck } from "lucide-react";
-
-// Shinglong's three services; order matches hero.images
-const tiles = [
-  { label: "Sea", title: "Freight", Icon: Ship },
-  { label: "Air", title: "Freight", Icon: Plane },
-  { label: "Customs", title: "Clearance", Icon: FileCheck },
-];
+import { ChevronLeft, ChevronRight, MessageCircle } from "lucide-react";
+import { whatsappLink, type HeroContent, type HeroSlide } from "@/data/shinglongdata";
+import { homeIcons } from "./icons";
 
 interface HeroProps {
   hero: HeroContent;
 }
 
 const STRIP_COUNT = 16;
+const SLIDE_MS = 6000;
+
+// Renders the bold heading line with the `highlight` part in brand red
+function BoldLine({ slide }: { slide: HeroSlide }) {
+  const at = slide.titleBold.indexOf(slide.highlight);
+  if (!slide.highlight || at === -1) return <>{slide.titleBold}</>;
+  return (
+    <>
+      {slide.titleBold.slice(0, at)}
+      <span className="text-primary">{slide.highlight}</span>
+      {slide.titleBold.slice(at + slide.highlight.length)}
+    </>
+  );
+}
 
 export default function Hero({ hero }: HeroProps) {
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(true);
-  const total = hero.images.length;
+  const total = hero.slides.length;
+  const slide = hero.slides[index];
   const transitionTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const goTo = (next: number) => {
@@ -39,7 +47,7 @@ export default function Hero({ hero }: HeroProps) {
   const next = () => goTo((index + 1) % total);
 
   useEffect(() => {
-    const timer = setTimeout(() => goTo((index + 1) % total), 6000);
+    const timer = setTimeout(() => goTo((index + 1) % total), SLIDE_MS);
     return () => clearTimeout(timer);
   }, [index, total]);
 
@@ -50,7 +58,7 @@ export default function Hero({ hero }: HeroProps) {
   }, []);
 
   return (
-    <section className="relative w-full overflow-hidden ">
+    <section className="relative w-full overflow-hidden">
       <div className="relative min-h-[calc(100vh-80px)] md:min-h-[calc(100vh-136px)] w-full overflow-hidden bg-primary-darker">
 
         {/* Image — sliced into strips that shutter open on each slide change */}
@@ -72,7 +80,7 @@ export default function Hero({ hero }: HeroProps) {
                 }}
               >
                 <Image
-                  src={hero.images[index]}
+                  src={slide.image}
                   alt=""
                   fill
                   loading="eager"
@@ -96,87 +104,151 @@ export default function Hero({ hero }: HeroProps) {
               transform: translateY(0);
             }
           }
+          /* Text lines rise in one after another on each slide */
+          .hero-rise {
+            animation: hero-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+          }
+          @keyframes hero-rise {
+            from {
+              opacity: 0;
+              transform: translateY(24px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+          /* Timer bar on the active tile */
+          .hero-progress {
+            animation: hero-progress ${SLIDE_MS}ms linear both;
+          }
+          @keyframes hero-progress {
+            from {
+              width: 0;
+            }
+            to {
+              width: 100%;
+            }
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .hero-strip,
+            .hero-rise,
+            .hero-progress {
+              animation: none;
+            }
+          }
         `}</style>
 
-        {/* Gradient — stacks on mobile (bottom-heavy), side on desktop */}
-        <div className="absolute inset-0 bg-linear-to-t from-slate-900/90 via-slate-900/50 to-transparent md:bg-linear-to-r md:from-slate-900/80 md:via-slate-900/40 md:to-transparent" />
+        {/* Light shade behind the text only, so the photos stay bright */}
+        <div className="absolute inset-0 bg-linear-to-t from-black/50 via-black/10 to-transparent md:bg-linear-to-r md:from-black/40 md:via-black/10 md:to-transparent" />
 
         {/* Text */}
         <div
-            className={`absolute inset-0 z-10 flex flex-col items-center text-center justify-end pb-60 px-6
-                sm:justify-end sm:pb-20 sm:px-10
-                md:justify-center md:pb-32 md:px-20
-                lg:px-40
-                text-white transition-all duration-500 ease-out
-                ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
-            >
-            <h1 className="text-4xl font-extrabold tracking-wide sm:text-4xl md:text-5xl lg:text-6xl">
-                {hero.heading}
-            </h1>
-            <p className="mt-3 text-sm leading-relaxed text-slate-100 sm:mt-4 md:text-base max-w-xl">
-                {hero.description}
-            </p>
-            <a
-                href={hero.cta.href}
-                className="btn-primary mt-5 w-fit text-sm"
-            >
-                {hero.cta.label}
-            </a>
-        </div>
+          className={`absolute inset-0 z-10 flex items-end pb-36 transition-opacity duration-400 md:items-center md:pb-24 ${
+            visible ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          {/* Soft text shadow keeps the white text readable on bright photos */}
+          <div
+            key={index}
+            className="mx-auto w-full max-w-7xl px-6 text-white [text-shadow:0_2px_16px_rgba(0,0,0,0.55)]"
+          >
+            <div className="max-w-2xl">
+              <p className="hero-rise text-xs font-semibold uppercase tracking-[0.2em] text-white md:text-sm">
+                {slide.eyebrow}
+              </p>
 
-
-        {/* Service tiles */}
-        <div className="absolute inset-x-0 bottom-0 z-20">
-        <div className="mx-auto grid max-w-5xl grid-cols-3 gap-px px-0 md:gap-2 md:px-6">
-            {tiles.map(({ label, title, Icon }, i) => (
-            <button
-                key={label}
-                onClick={() => i < total && goTo(i)}
-                className={`group flex flex-col items-center gap-1 border-t-2 bg-primary-darker/95 px-2 py-3 text-center backdrop-blur transition-colors hover:bg-primary-darker md:flex-row md:gap-4 md:px-6 md:py-6 md:text-left ${
-                index === i ? "border-primary" : "border-transparent"
-                }`}
-            >
-                <Icon
-                className="h-6 w-6 shrink-0 text-white/70 transition-colors group-hover:text-white md:h-10 md:w-10"
-                strokeWidth={1.25}
-                />
-                <span className="leading-tight">
-                <span className="block text-[11px] text-primary md:text-sm">{label}</span>
-                <span className="block text-xs font-medium text-white md:text-base">{title}</span>
+              <h1 className="mt-5 text-4xl leading-[1.05] md:text-6xl lg:text-7xl">
+                <span className="hero-rise block font-light text-white" style={{ animationDelay: "120ms" }}>
+                  {slide.titleLight}
                 </span>
-            </button>
-            ))}
+                <span className="hero-rise block font-extrabold" style={{ animationDelay: "240ms" }}>
+                  <BoldLine slide={slide} />
+                </span>
+              </h1>
+
+              <p
+                className="hero-rise mt-6 max-w-xl text-base leading-relaxed text-white md:text-lg"
+                style={{ animationDelay: "360ms" }}
+              >
+                {slide.description}
+              </p>
+
+              <div className="hero-rise mt-8 flex flex-wrap gap-4" style={{ animationDelay: "480ms" }}>
+                <a href={hero.primaryCta.href} className="btn-primary text-sm">
+                  {hero.primaryCta.label}
+                  <ChevronRight className="h-4 w-4" />
+                </a>
+                <a
+                  href={whatsappLink(hero.secondaryCta.whatsappMessage)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-[5px] border border-white/40 px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-white hover:bg-white hover:text-primary-darker"
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  {hero.secondaryCta.label}
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
+
+        {/* Carousel controls — bottom right, above the tiles (on phones the tiles do this job) */}
+        <div className="absolute bottom-32 right-6 z-20 hidden gap-2 md:flex lg:right-10">
+          <button
+            type="button"
+            onClick={prev}
+            aria-label="Previous slide"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/30 text-white backdrop-blur transition-colors hover:border-primary hover:bg-primary md:h-12 md:w-12"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+          <button
+            type="button"
+            onClick={next}
+            aria-label="Next slide"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/30 text-white backdrop-blur transition-colors hover:border-primary hover:bg-primary md:h-12 md:w-12"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
         </div>
 
-        {/* Carousel controls — smaller on mobile */}
-        <button
-          onClick={prev}
-          aria-label="Previous slide"
-          className="absolute left-3 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur hover:bg-white/30 md:left-4 md:h-9 md:w-9"
-        >
-          ‹
-        </button>
-        <button
-          onClick={next}
-          aria-label="Next slide"
-          className="absolute right-3 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur hover:bg-white/30 md:right-4 md:h-9 md:w-9"
-        >
-          ›
-        </button>
-
-        
-
-        {/* Dots */}
-        <div className="absolute bottom-36 left-1/2 z-15 flex -translate-x-1/2 gap-1.5">
-          {hero.images.map((_, i) => (
-            <span
-              key={i}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                i === index ? "w-4 bg-white" : "w-1.5 bg-white/40"
-              }`}
-            />
-          ))}
+        {/* Service tiles — double as slide indicators */}
+        <div className="absolute inset-x-0 bottom-0 z-20">
+          <div className="mx-auto grid max-w-7xl grid-cols-3 gap-px md:gap-2 md:px-6">
+            {hero.slides.map(({ tile }, i) => {
+              const Icon = homeIcons[tile.icon];
+              const active = index === i;
+              return (
+                <button
+                  key={tile.label}
+                  type="button"
+                  onClick={() => i !== index && goTo(i)}
+                  aria-label={`Show ${tile.label} ${tile.title}`}
+                  aria-current={active}
+                  className={`group relative flex flex-col items-center gap-1 overflow-hidden px-2 py-3 text-center backdrop-blur transition-colors md:flex-row md:gap-4 md:px-6 md:py-6 md:text-left ${
+                    active ? "bg-primary-darker" : "bg-primary-darker/80 hover:bg-primary-darker"
+                  }`}
+                >
+                  {/* Timer bar */}
+                  <span className="absolute inset-x-0 top-0 h-0.5 bg-white/10">
+                    {active && <span key={index} className="hero-progress block h-full bg-primary" />}
+                  </span>
+                  <Icon
+                    className={`h-6 w-6 shrink-0 transition-colors md:h-10 md:w-10 ${
+                      active ? "text-primary" : "text-white/60 group-hover:text-white"
+                    }`}
+                    strokeWidth={1.25}
+                  />
+                  <span className="leading-tight">
+                    <span className="block text-[11px] text-primary md:text-sm">{tile.label}</span>
+                    <span className="block text-xs font-medium text-white md:text-base">{tile.title}</span>
+                    <span className="mt-1 hidden text-xs text-white/50 md:block">{tile.meta}</span>
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

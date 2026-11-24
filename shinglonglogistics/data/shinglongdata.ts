@@ -8,12 +8,23 @@ export interface NavItem {
   children?: {label:string; href:string}[];
 }
 
-export interface HeroContent {
+export interface HeroSlide {
+  image: string;
   eyebrow: string;
-  heading: string;
+  // Heading is shown as a light first line and a bold second line;
+  // `highlight` (part of the bold line) is shown in brand red
+  titleLight: string;
+  titleBold: string;
+  highlight: string;
   description: string;
-  cta: { label: string; href: string };
-  images: string[];
+  // The matching tile along the bottom of the hero
+  tile: { label: string; title: string; meta: string; icon: HomeIcon };
+}
+
+export interface HeroContent {
+  slides: HeroSlide[];
+  primaryCta: { label: string; href: string };
+  secondaryCta: { label: string; whatsappMessage: string };
 }
 
 export interface OverviewContent {
@@ -113,17 +124,44 @@ export const planningInfrastructure: PlanningInfrastructureContent = {
   tagline: "Championing planning strategic development infrastructure",
 
   hero: {
-    eyebrow: "China to Kenya Freight Specialists",
-    heading: "Your Trusted Shipping and Freight Forwarding Partner",
-    description:
-      "Sea freight, air freight and end-to-end customs clearance between Guangzhou, Yiwu and Nairobi — trusted by businesses across Kenya.",
-    cta: { label: "Get a Quote", href: "#calculator" },
-    images: [
-      // Order matches the hero tiles: Sea, Air, Customs
-      "/images/SeaTransportation.jpg",
-      "/images/AirTransportation.jpg",
-      "/images/allTransportation.jpg",
+    // Rates and transit times in the slides should match `shippingMethods` below
+    slides: [
+      {
+        image: "/images/SeaTransportation.jpg",
+        eyebrow: "China to Kenya Freight Specialists",
+        titleLight: "Your trusted",
+        titleBold: "freight forwarding partner",
+        highlight: "partner",
+        description:
+          "Sea freight, air freight and end-to-end customs clearance between Guangzhou, Yiwu and Nairobi — trusted by businesses across Kenya.",
+        tile: { label: "Sea", title: "Freight", meta: "From KSh 65,000/CBM", icon: "ship" },
+      },
+      {
+        image: "/images/AirTransportation.jpg",
+        eyebrow: "Air Freight to JKIA, Nairobi",
+        titleLight: "Urgent cargo?",
+        titleBold: "Fly it in from 3 days",
+        highlight: "3 days",
+        description:
+          "Direct Air for general goods from US$13.50/kg, and Hong Kong Air for branded & special goods.",
+        tile: { label: "Air", title: "Freight", meta: "From US$13.50/kg", icon: "plane" },
+      },
+      {
+        image: "/images/allTransportation.jpg",
+        eyebrow: "Customs Clearance at Mombasa & JKIA",
+        titleLight: "Paperwork & duties?",
+        titleBold: "all handled for you",
+        highlight: "for you",
+        description:
+          "Licensed customs brokers prepare your documents, handle duties and taxes, and liaise with KRA so your goods are released without delays.",
+        tile: { label: "Customs", title: "Clearance", meta: "Mombasa & JKIA", icon: "file" },
+      },
     ],
+    primaryCta: { label: "Get a Quote", href: "#calculator" },
+    secondaryCta: {
+      label: "Chat on WhatsApp",
+      whatsappMessage: "Hi Shinglong, I'd like to ship from China to Kenya.",
+    },
   },
 
   overview: {
