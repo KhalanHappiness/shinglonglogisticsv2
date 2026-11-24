@@ -25,11 +25,15 @@ interface Estimate {
   total: string;
 }
 
-const num = (n: number, digits = 2) =>
-  n.toLocaleString("en-US", { minimumFractionDigits: digits, maximumFractionDigits: digits });
+// Every figure is shown to 2 decimal places
+const num = (n: number) =>
+  n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+// Round to 2 decimal places, so the chargeable figure shown × rate = the total shown
+const round2 = (n: number) => Math.round((n + Number.EPSILON) * 100) / 100;
 
 const money = (amount: number, currency: ShippingMethod["currency"]) =>
-  currency === "USD" ? `US$ ${num(amount)}` : `KSh ${num(amount, 0)}`;
+  `${currency === "USD" ? "US$" : "KSh"} ${num(amount)}`;
 
 const rateLabel = (m: ShippingMethod) =>
   m.type === "air" ? `${money(m.rate, m.currency)} / kg` : `${money(m.rate, m.currency)} / CBM`;
@@ -38,7 +42,7 @@ const rateLabel = (m: ShippingMethod) =>
 function estimate(method: ShippingMethod, weightKg: number, volumeCbm: number): Estimate {
   if (method.type === "air") {
     const volumetric = volumeCbm * AIR_KG_PER_CBM;
-    const chargeable = Math.max(weightKg, volumetric);
+    const chargeable = round2(Math.max(weightKg, volumetric));
     return {
       method,
       rows: [
@@ -55,15 +59,15 @@ function estimate(method: ShippingMethod, weightKg: number, volumeCbm: number): 
   }
 
   const converted = weightKg / SEA_KG_PER_CBM;
-  const chargeable = Math.max(volumeCbm, converted);
+  const chargeable = round2(Math.max(volumeCbm, converted));
   return {
     method,
     rows: [
-      { label: "Actual volume", value: `${num(volumeCbm, 3)} CBM` },
-      { label: `Weight as volume (kg ÷ ${SEA_KG_PER_CBM})`, value: `${num(converted, 3)} CBM` },
+      { label: "Actual volume", value: `${num(volumeCbm)} CBM` },
+      { label: `Weight as volume (kg ÷ ${SEA_KG_PER_CBM})`, value: `${num(converted)} CBM` },
       {
         label: "Chargeable volume",
-        value: `${num(chargeable, 3)} CBM (${converted >= volumeCbm ? "weight" : "volume"})`,
+        value: `${num(chargeable)} CBM (${converted >= volumeCbm ? "weight" : "volume"})`,
       },
       { label: "Rate", value: rateLabel(method) },
     ],
@@ -97,7 +101,8 @@ export default function QuoteCalculator() {
     const next = { ...dims, [key]: value };
     setDims(next);
     const [l, w, h] = [next.l, next.w, next.h].map(parseFloat);
-    if (l > 0 && w > 0 && h > 0) setVolume(String(+(l * w * h).toFixed(4)));
+    // Round up to 2 decimal places so small parcels never come out as 0.00 CBM
+    if (l > 0 && w > 0 && h > 0) setVolume(String(Math.ceil(round2(l * w * h * 100)) / 100));
   };
 
   const handleSubmit = (e: FormEvent) => {
