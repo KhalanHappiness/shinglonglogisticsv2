@@ -4,8 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { FileText, Mail, MapPin, Phone } from "lucide-react";
-import { mainNav, planningInfrastructure } from "@/data/shinglongdata";
+import { Clock, FileText, Mail, MapPin, Phone } from "lucide-react";
+import { contactInfo, mainNav, planningInfrastructure } from "@/data/shinglongdata";
 
 const { footer: contact } = planningInfrastructure;
 
@@ -28,7 +28,11 @@ export default function Header() {
             <MapPin className="h-3.5 w-3.5 text-primary" />
             {contact.address.join(", ")}
           </span>
-          <a href={`tel:${contact.phone}`} className="flex items-center gap-2 hover:text-white">
+          <span className="hidden items-center gap-2 lg:flex">
+            <Clock className="h-3.5 w-3.5 text-primary" />
+            {contactInfo.hours[0].day}: {contactInfo.hours[0].hours}
+          </span>
+          <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="flex items-center gap-2 hover:text-white">
             <Phone className="h-3.5 w-3.5 text-primary" />
             {contact.phone}
           </a>
@@ -37,11 +41,11 @@ export default function Header() {
             {contact.email}
           </a>
           <Link
-            href="/#quote"
+            href="/quote-calculator"
             className="ml-auto flex h-full items-center gap-2 bg-primary px-5 font-semibold text-white transition-colors hover:bg-[#ff7f50]"
           >
             <FileText className="h-3.5 w-3.5" />
-            Request Quote
+            Get a Quote
           </Link>
         </div>
       </div>
@@ -50,7 +54,7 @@ export default function Header() {
       <div className="bg-white">
         <div className="mx-auto flex max-w-7xl items-center gap-8 px-6 py-3">
           <Link href="/" className="flex items-center gap-2 text-sm font-semibold text-primary">
-            <Image src="/images/shinglong-logo.png" alt="Shinglong Logo" width={500} height={500} loading="eager" className="h-15 w-auto" />
+            <Image src="/images/shinglong-logo-cropped.png" alt="Shinglong Logistics" width={412} height={292} loading="eager" className="h-14 w-auto md:h-18" />
           </Link>
 
           {/* Desktop nav */}

@@ -14,7 +14,7 @@ export default function ServiceCards({ items, intro }: ServiceCardsProps) {
       <div className="mx-auto max-w-7xl px-6">
         {intro && <p className="mx-auto max-w-2xl text-center leading-relaxed text-slate-600">{intro}</p>}
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {items.map(({ slug, icon, title, summary }) => {
             const Icon = homeIcons[icon];
             return (

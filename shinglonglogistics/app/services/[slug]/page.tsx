@@ -64,6 +64,22 @@ export default async function ServicePage(props: PageProps<"/services/[slug]">) 
             </div>
 
             <aside className="space-y-8">
+              <div className="border border-slate-200 p-8">
+                <h3 className="text-lg font-semibold text-foreground">At a glance</h3>
+                <dl className="mt-5 divide-y divide-slate-100">
+                  {service.facts.map(({ label, value }) => (
+                    <div key={label} className="py-3">
+                      <dt className="text-xs uppercase tracking-[0.15em] text-slate-400">{label}</dt>
+                      <dd className="mt-1 font-medium text-foreground">{value}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <Link href="/quote-calculator" className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary">
+                  Get an instant estimate
+                  <ChevronRight className="h-4 w-4" />
+                </Link>
+              </div>
+
               <div className="bg-primary-darker p-8 text-white">
                 <h3 className="text-lg font-semibold">Ideal for</h3>
                 <ul className="mt-5 space-y-3 text-white/75">

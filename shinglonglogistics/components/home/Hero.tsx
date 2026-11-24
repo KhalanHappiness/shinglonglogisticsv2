@@ -4,12 +4,13 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import type { HeroContent } from "@/data/shinglongdata";
 
-import { Ship, Plane, Truck } from "lucide-react";
+import { Ship, Plane, FileCheck } from "lucide-react";
 
+// Shinglong's three services; order matches hero.images
 const tiles = [
   { label: "Sea", title: "Freight", Icon: Ship },
   { label: "Air", title: "Freight", Icon: Plane },
-  { label: "Road", title: "Freight", Icon: Truck },
+  { label: "Customs", title: "Clearance", Icon: FileCheck },
 ];
 
 interface HeroProps {
@@ -50,7 +51,7 @@ export default function Hero({ hero }: HeroProps) {
 
   return (
     <section className="relative w-full overflow-hidden ">
-      <div className="relative min-h-[calc(100vh-84px)] md:min-h-[calc(100vh-124px)] w-full overflow-hidden bg-primary-darker">
+      <div className="relative min-h-[calc(100vh-80px)] md:min-h-[calc(100vh-136px)] w-full overflow-hidden bg-primary-darker">
 
         {/* Image — sliced into strips that shutter open on each slide change */}
         <div key={index} className="absolute inset-0 flex">

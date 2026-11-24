@@ -3,15 +3,18 @@ import Advantages from "@/components/home/Advantages";
 import AboutPromo from "@/components/home/AboutPromo";
 import Stats from "@/components/home/Stats";
 import Services from "@/components/home/Services";
+import CalculatorSection from "@/components/calculator/CalculatorSection";
 import Tracking from "@/components/home/Tracking";
-import Strengths from "@/components/home/Strengths";
+import ProcessSteps from "@/components/about/ProcessSteps";
 import Features from "@/components/home/Features";
-import Team from "@/components/home/Team";
-import Testimonials from "@/components/home/Testimonials";
 import LatestNews from "@/components/home/LatestNews";
 import QuoteForm from "@/components/home/QuoteForm";
 import CtaBand from "@/components/home/CtaBand";
-import { home, planningInfrastructure } from "@/data/shinglongdata";
+// Hidden until there is real content for them — see the TODOs in data/shinglongdata.ts
+// import Strengths from "@/components/home/Strengths";
+// import Team from "@/components/home/Team";
+// import Testimonials from "@/components/home/Testimonials";
+import { home, pages, planningInfrastructure } from "@/data/shinglongdata";
 
 export default function Home() {
   return (
@@ -21,11 +24,13 @@ export default function Home() {
       <AboutPromo content={home.about} />
       <Stats items={home.stats} />
       <Services content={home.services} />
+      <CalculatorSection />
       <Tracking content={home.tracking} />
-      <Strengths content={home.strengths} />
+      <ProcessSteps content={pages.about.process} />
+      {/* <Strengths content={home.strengths} /> */}
       <Features items={home.features} />
-      <Team content={home.team} />
-      <Testimonials content={home.testimonials} />
+      {/* <Team content={home.team} /> */}
+      {/* <Testimonials content={home.testimonials} /> */}
       <LatestNews content={home.news} />
       <QuoteForm content={home.quote} />
       <CtaBand content={home.ctaBand} />

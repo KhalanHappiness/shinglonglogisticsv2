@@ -1,8 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import { planningInfrastructure as pi } from "@/data/shinglongdata";
+import { contactInfo, planningInfrastructure as pi, whatsappLink } from "@/data/shinglongdata";
 
-const socials = ["facebook", "twitter", "instagram", "linkedin", "youtube"] as const;
+// Placeholder icons with no links — hidden until real social accounts are added
+// const socials = ["facebook", "twitter", "instagram", "linkedin", "youtube"] as const;
 
 export default function Footer() {
   const { footer } = pi;
@@ -16,11 +17,11 @@ export default function Footer() {
           <div>
             <div className="mb-3 flex flex-col sm:flex-row items-start sm:items-center gap-3">
               <Image
-                src="/images/shinglong-logo.png"
-                alt="Shinglong Logo"
-                width={500}
-                height={500}
-                className="h-20 w-24 rounded-lg bg-white object-contain shrink-0"
+                src="/images/shinglong-logo-cropped.png"
+                alt="Shinglong Logistics"
+                width={412}
+                height={292}
+                className="h-24 w-auto shrink-0 rounded-lg bg-white p-2"
               />
               <div>
                 <p className="text-base font-bold leading-tight tracking-widest">Shinglong Logistics</p>
@@ -29,8 +30,12 @@ export default function Footer() {
             </div>
             <p className="text-sm text-white/70">{footer.address[0]}</p>
             <p className="text-sm text-white/70">{footer.address[1]}</p>
-            <p className="mt-2 text-sm text-white/70">{footer.email}</p>
-            <p className="text-sm text-white/70">{footer.phone}</p>
+            <p className="mt-2 text-sm text-white/70">
+              <a href={`mailto:${footer.email}`} className="hover:text-white">{footer.email}</a>
+            </p>
+            <p className="text-sm text-white/70">
+              <a href={`tel:${footer.phone.replace(/\s/g, "")}`} className="hover:text-white">{footer.phone}</a>
+            </p>
           </div>
 
           {/* Quick links */}
@@ -58,9 +63,9 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Socials + help row */}
+        {/* Help row */}
         <div className="flex flex-col items-center border-b border-white/10 justify-between gap-4 pt-4 pb-4 text-xs text-white/50 md:flex-row">
-          <div className="flex gap-2">
+          {/* <div className="flex gap-2">
             {socials.map((s) => (
               <span
                 key={s}
@@ -70,22 +75,34 @@ export default function Footer() {
                 {s[0]}
               </span>
             ))}
-          </div>
+          </div> */}
+          <p className="text-sm text-white/70">
+            Open {contactInfo.hours[0].day}, {contactInfo.hours[0].hours} · {contactInfo.hours[1].day},{" "}
+            {contactInfo.hours[1].hours} (EAT)
+          </p>
           <p className="text-sm text-white/70 text-center md:text-right">
-            Need help? Our team is available 24/7 to assist you.{" "}
-            <Link href="/contact" className="text-secondary hover:text-white">Click here</Link>{" "}
-            to start a chat.
+            Need help?{" "}
+            <a
+              href={whatsappLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-white underline-offset-4 hover:text-secondary"
+            >
+              Chat with us on WhatsApp
+            </a>
           </p>
         </div>
 
         {/* Copyright row */}
         <div className="flex flex-col items-center justify-between gap-2 pt-6 text-xs text-white/50 md:flex-row">
-          <p>© 2026 Shinglong Logistics. All Rights Reserved.</p>
+          <p>© 2026 Shinglong Logistics Ltd. All Rights Reserved.</p>
+          {/* These pages don't exist yet — restore the links once they're written.
           <div className="flex flex-wrap justify-center gap-4 md:justify-end">
             <Link href="/privacy" className="hover:text-white">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-white">Terms & Conditions</Link>
             <Link href="/accessibility" className="hover:text-white">Accessibility</Link>
-          </div>
+          </div> */}
+          <p>Sea Freight · Air Freight · Customs Clearance</p>
         </div>
       </div>
     </footer>

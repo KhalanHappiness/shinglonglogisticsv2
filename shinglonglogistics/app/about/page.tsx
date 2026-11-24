@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import AboutPromo from "@/components/home/AboutPromo";
 import Stats from "@/components/home/Stats";
-import ProcessSteps from "@/components/about/ProcessSteps";
 import Advantages from "@/components/home/Advantages";
-import Team from "@/components/home/Team";
-import Testimonials from "@/components/home/Testimonials";
+import Features from "@/components/home/Features";
 import CtaBand from "@/components/home/CtaBand";
+// Hidden until there is real content for them — see the TODOs in data/shinglongdata.ts
+// import Team from "@/components/home/Team";
+// import Testimonials from "@/components/home/Testimonials";
 import { home, pages } from "@/data/shinglongdata";
 
 export const metadata: Metadata = {
@@ -15,17 +16,17 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-  const { banner, process } = pages.about;
+  const { banner } = pages.about;
 
   return (
     <main>
       <PageHeader title="About Us" crumbs={[{ label: "About Us" }]} />
       <AboutPromo content={home.about} />
       <Stats items={home.stats} image={banner.image} heading={banner.heading} highlight={banner.highlight} />
-      <ProcessSteps content={process} />
       <Advantages content={{ ...home.advantages, cta: { label: "Our Services", href: "/services" } }} />
-      <Team content={home.team} />
-      <Testimonials content={home.testimonials} />
+      <Features items={home.features} />
+      {/* <Team content={home.team} /> */}
+      {/* <Testimonials content={home.testimonials} /> */}
       <CtaBand content={home.ctaBand} />
     </main>
   );

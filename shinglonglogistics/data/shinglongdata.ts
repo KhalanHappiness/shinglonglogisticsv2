@@ -101,9 +101,10 @@ export const mainNav: NavItem[] = [
   {
     label: "About Us", href: "/about"},
   { label: "Our Services", href: "/services" },
+  { label: "Quote Calculator", href: "/quote-calculator" },
   { label: "News & Updates", href: "/news" },
   { label: "Contact Us", href: "/contact" },
-  
+
 ];
 export const planningInfrastructure: PlanningInfrastructureContent = {
   slug: "planning-infrastructure",
@@ -111,13 +112,13 @@ export const planningInfrastructure: PlanningInfrastructureContent = {
   tagline: "Championing planning strategic development infrastructure",
 
   hero: {
-    eyebrow: "Planning",
+    eyebrow: "China to Kenya Freight Specialists",
     heading: "Your Trusted Shipping and Freight Forwarding Partner",
     description:
-      "Sea Freight, Air Freight and end-to-end customs clearance between Guangzhou, Yiwu and Nairobi, Trusted by businesses across Kenya",
-    cta: { label: "Learn More", href: "#" },
+      "Sea freight, air freight and end-to-end customs clearance between Guangzhou, Yiwu and Nairobi — trusted by businesses across Kenya.",
+    cta: { label: "Get a Quote", href: "#calculator" },
     images: [
-      // Order matches the hero tiles: Sea, Air, Road
+      // Order matches the hero tiles: Sea, Air, Customs
       "/images/SeaTransportation.jpg",
       "/images/AirTransportation.jpg",
       "/images/allTransportation.jpg",
@@ -209,7 +210,7 @@ export const planningInfrastructure: PlanningInfrastructureContent = {
   footer: {
     address: ["Aksharap Complex", "Nairobi, Kenya"],
     email: "info@shinglonglogistics.com",
-    phone: "0724032270",
+    phone: "+254 724 032 270",
     quickLinks: [
       { label: "About Us", href: "/about" },
       { label: "Our Services", href: "/services" },
@@ -220,7 +221,7 @@ export const planningInfrastructure: PlanningInfrastructureContent = {
       { label: "Sea Freight", href: "/services/sea-freight" },
       { label: "Air Freight", href: "/services/air-freight" },
       { label: "Customs Clearance", href: "/services/customs-clearance" },
-      { label: "Door-to-Door Delivery", href: "/services/door-to-door-delivery" },
+      { label: "Quote Calculator", href: "/quote-calculator" },
     ],
   },
 };
@@ -343,6 +344,9 @@ export interface HomeContent {
 // Services catalogue — drives /services, /services/[slug] and the home cards
 // ---------------------------------------------------------------------------
 
+// Service details, rates and transit times below come from the current
+// shinglonglogistics.com site.
+
 export interface Service {
   slug: string;
   icon: HomeIcon;
@@ -352,6 +356,8 @@ export interface Service {
   intro: string[];
   includes: string[];
   idealFor: string[];
+  // Short "at a glance" facts shown on the service page
+  facts: { label: string; value: string }[];
 }
 
 export const services: Service[] = [
@@ -360,82 +366,216 @@ export const services: Service[] = [
     icon: "ship",
     title: "Sea Freight",
     summary:
-      "Cost-effective container shipping for large or heavy consignments from China to Kenya.",
+      "Cost-effective shipping from Guangzhou and Yiwu to Mombasa seaport. FCL & LCL options available.",
     image: "/images/SeaTransportation.jpg",
     intro: [
-      "Sea freight is the most economical way to move larger volumes of goods from China. We book space with reliable carriers, coordinate collection from your suppliers and keep you informed from loading to arrival.",
-      "If you don't have enough cargo to fill a container on your own, we can consolidate your goods with other shipments so you only pay for the space you use.",
+      "Sea freight is the most economical way to move larger volumes of goods from China. We receive your cargo at our warehouses in Guangzhou and Yiwu, book it onto the next sailing and ship it to Mombasa seaport.",
+      "Choose a full container (FCL), or share a container (LCL) and pay only for the space you use. We can also consolidate goods from several suppliers into one cost-effective shipment.",
     ],
     includes: [
-      "Collection from suppliers in Guangzhou, Yiwu and surrounding areas",
-      "Consolidation of goods from several suppliers into one shipment",
-      "Booking, loading and export documentation in China",
-      "Regular status updates while your cargo is at sea",
-      "Customs clearance and onward delivery in Kenya",
+      "Receipt of goods at our Guangzhou and Yiwu warehouses",
+      "FCL and LCL options, with consolidation from multiple suppliers",
+      "Competitive per-CBM rates with no surprise fees",
+      "Full cargo tracking from China to Kenya",
+      "Customs clearance at Mombasa and collection from our Nairobi office",
     ],
     idealFor: ["Bulk stock orders", "Heavy or bulky goods", "Shipments that aren't time-critical"],
+    facts: [
+      { label: "Transit time", value: "30–45 days" },
+      { label: "Rate", value: "KSh 65,000 per CBM" },
+      { label: "Guangzhou sailings", value: "Bi-weekly" },
+      { label: "Yiwu sailings", value: "Weekly" },
+      { label: "Not accepted", value: "Hazardous goods" },
+    ],
   },
   {
     slug: "air-freight",
     icon: "plane",
     title: "Air Freight",
-    summary:
-      "Fast air cargo for urgent, high-value or smaller consignments when time matters most.",
+    summary: "Fast, reliable air cargo from China to JKIA, Nairobi, for urgent or smaller consignments.",
     image: "/images/AirTransportation.jpg",
     intro: [
-      "When goods are needed quickly, air freight gets them to Nairobi in a fraction of the time of sea shipping. It's a good fit for smaller, lighter or higher-value consignments.",
-      "We handle the booking, packaging checks and paperwork, then clear your goods on arrival so they reach you as soon as possible.",
+      "When goods are needed quickly, air freight gets them to Jomo Kenyatta International Airport (JKIA) in Nairobi in days rather than weeks.",
+      "General goods fly Direct Air for the fastest transit, while branded and special goods ship via Hong Kong Air. We take care with fragile cargo and handle the paperwork from door to airport.",
     ],
     includes: [
-      "Collection and packaging checks at origin",
-      "Air cargo booking and export documentation",
-      "Shipment tracking from departure to arrival",
-      "Clearance on arrival in Nairobi",
-      "Delivery to your premises",
+      "Direct Air for general goods: 3–7 days, weekly departures",
+      "Hong Kong Air for branded & special goods: 10–15 days, twice-weekly departures",
+      "Fragile cargo handling",
+      "Door-to-airport service to JKIA",
+      "Customs clearance on arrival",
     ],
     idealFor: ["Urgent restocks", "Samples and small parcels", "High-value or fragile items"],
+    facts: [
+      { label: "Direct Air (general goods)", value: "US$13.50 per kg · 3–7 days" },
+      { label: "Hong Kong Air (branded & special goods)", value: "US$14 per kg · 10–15 days" },
+      { label: "Arrives at", value: "JKIA, Nairobi" },
+      { label: "Not accepted", value: "Batteries, liquids (Direct Air also: powders, food)" },
+    ],
   },
   {
     slug: "customs-clearance",
     icon: "file",
     title: "Customs Clearance",
-    summary:
-      "We prepare your import documents and clear your goods so they are released without delays.",
+    summary: "End-to-end customs clearance at Mombasa port and JKIA, with KRA liaison.",
     image: "/images/allTransportation.jpg",
     intro: [
-      "Paperwork is where many imports get stuck. Our team prepares and checks your documents before your goods arrive, so clearance is as smooth as possible.",
-      "We'll explain the duties and charges that apply to your shipment up front, so there are no surprises when your cargo lands.",
+      "Paperwork is where many imports get stuck. Our licensed customs brokers prepare and check your documents, handle duties and taxes, and liaise with KRA so your goods are released without delays.",
+      "Clearance costs depend on the HS codes, type of cargo and declared value of your goods, so we prepare a tailored quote for each shipment. We also clear cargo that is already in Kenya.",
     ],
     includes: [
-      "Review of invoices, packing lists and supporting documents",
-      "Preparation and submission of import declarations",
-      "Duty and tax estimates before your goods arrive",
-      "Liaison with the relevant authorities on your behalf",
-      "Release of your goods for delivery",
+      "Document preparation and checks",
+      "Duty and tax handling",
+      "KRA liaison on your behalf",
+      "Clearance at Mombasa port and JKIA",
+      "Cargo insurance options",
     ],
-    idealFor: ["First-time importers", "Shipments with mixed goods", "Businesses that want one point of contact"],
+    idealFor: ["First-time importers", "Cargo already in Kenya", "Businesses that want one point of contact"],
+    facts: [
+      { label: "Clearance points", value: "Mombasa port & JKIA" },
+      {
+        label: "Documents needed",
+        value: "Commercial invoice, packing list, bill of lading, IDF, KRA PIN certificate",
+      },
+      { label: "Pricing", value: "Tailored quote (depends on HS code, cargo type and value)" },
+    ],
+  },
+  // Not offered on the current shinglonglogistics.com site — restore if you add it.
+  // {
+  //   slug: "door-to-door-delivery",
+  //   icon: "truck",
+  //   title: "Door-to-Door Delivery",
+  //   summary: "One service from your supplier's door to yours, with road transport for the final leg.",
+  //   image: "/images/allTransportation.jpg",
+  //   intro: [...],
+  //   includes: [...],
+  //   idealFor: [...],
+  //   facts: [...],
+  // },
+];
+
+// ---------------------------------------------------------------------------
+// Quote calculator — formulas from the current shinglonglogistics.com
+// calculator; rates as confirmed by Shinglong.
+// ---------------------------------------------------------------------------
+
+export interface ShippingMethod {
+  id: string;
+  name: string;
+  type: "air" | "sea";
+  // What kind of goods this method is for, shown next to the rate
+  goods: string;
+  rate: number;
+  currency: "USD" | "KSH";
+  transit: string;
+  schedule: string;
+  restrictions: string[];
+}
+
+export const shippingMethods: ShippingMethod[] = [
+  {
+    id: "direct-air",
+    name: "Direct Air",
+    type: "air",
+    goods: "General goods",
+    rate: 13.5,
+    currency: "USD",
+    transit: "3–7 days",
+    schedule: "Weekly departures",
+    restrictions: ["No batteries", "No liquids", "No powders", "No food"],
   },
   {
-    slug: "door-to-door-delivery",
-    icon: "truck",
-    title: "Door-to-Door Delivery",
-    summary:
-      "One service from your supplier's door to yours, with road transport for the final leg.",
-    image: "/images/allTransportation.jpg",
-    intro: [
-      "Door-to-door delivery brings everything together: collection in China, shipping by sea or air, customs clearance and road delivery to your shop, warehouse or office.",
-      "You deal with a single team for the whole journey, and we keep you updated at every handover.",
-    ],
-    includes: [
-      "Collection from your supplier in China",
-      "Sea or air shipping, depending on your budget and timeline",
-      "Customs clearance in Kenya",
-      "Road transport to your chosen address",
-      "Proof of delivery once your goods arrive",
-    ],
-    idealFor: ["Traders without a clearing agent", "Regular repeat shipments", "Anyone who wants a hands-off service"],
+    id: "hk-air",
+    name: "Hong Kong Air",
+    type: "air",
+    goods: "Branded & special goods",
+    rate: 14,
+    currency: "USD",
+    transit: "10–15 days",
+    schedule: "Twice weekly",
+    restrictions: ["No batteries", "No liquids"],
+  },
+  {
+    id: "guangzhou-sea",
+    name: "Guangzhou Sea",
+    type: "sea",
+    goods: "General cargo",
+    rate: 65000,
+    currency: "KSH",
+    transit: "30–45 days",
+    schedule: "Bi-weekly sailings",
+    restrictions: ["No hazardous goods"],
+  },
+  {
+    id: "yiwu-sea",
+    name: "Yiwu Sea",
+    type: "sea",
+    goods: "General cargo",
+    rate: 65000,
+    currency: "KSH",
+    transit: "30–45 days",
+    schedule: "Weekly sailings",
+    restrictions: ["No hazardous goods"],
   },
 ];
+
+// Air: volumetric weight = CBM × 167; charged on the greater of actual and volumetric kg.
+// Sea: weight converted to volume = kg ÷ 800; charged on the greater of actual and converted CBM.
+export const AIR_KG_PER_CBM = 167;
+export const SEA_KG_PER_CBM = 800;
+
+// ---------------------------------------------------------------------------
+// Company contact details from the current shinglonglogistics.com site
+// ---------------------------------------------------------------------------
+
+export const contactInfo = {
+  // International format, digits only, for wa.me links
+  whatsapp: "254724032270",
+  hours: [
+    { day: "Mon – Fri", hours: "8:00 – 17:00" },
+    { day: "Saturday", hours: "9:00 – 13:00" },
+    { day: "Sunday", hours: "Closed" },
+  ],
+  offices: [
+    {
+      code: "CN",
+      name: "Guangzhou Warehouse",
+      location: "Guangzhou, Guangdong Province, China",
+      hours: "Mon–Sat: 8:00 – 18:00 (CST)",
+    },
+    {
+      code: "CN",
+      name: "Yiwu Warehouse",
+      location: "Yiwu, Zhejiang Province, China",
+      hours: "Mon–Sat: 8:00 – 18:00 (CST)",
+    },
+    {
+      code: "KE",
+      name: "Nairobi HQ",
+      location: "Aksharap Complex, Nairobi, Kenya",
+      hours: "Mon–Fri: 8:00 – 17:00 (EAT)",
+    },
+  ],
+  faq: [
+    {
+      q: "How long does sea freight from China to Mombasa take?",
+      a: "Sea freight from Guangzhou or Yiwu to Mombasa typically takes 30–45 days depending on the shipping line and any port delays.",
+    },
+    {
+      q: "What documents do I need for customs clearance?",
+      a: "You will need a commercial invoice, packing list, bill of lading, import declaration form (IDF), and a PIN certificate for KRA.",
+    },
+    {
+      q: "How do I get a quote?",
+      a: "Use our quote calculator for an instant estimate, fill in the contact form, or chat with us on WhatsApp and we'll send you a detailed quote.",
+    },
+  ],
+};
+
+export function whatsappLink(message?: string) {
+  const base = `https://wa.me/${contactInfo.whatsapp}`;
+  return message ? `${base}?text=${encodeURIComponent(message)}` : base;
+}
 
 // ---------------------------------------------------------------------------
 // News posts — drives /news, /news/[slug] and the home "Latest News" cards
@@ -494,7 +634,7 @@ export const newsPosts: NewsArticle[] = [
       "Missing paperwork is one of the most common causes of clearance delays. Here are the documents to have ready before your shipment arrives.",
     body: [
       "Clearance goes much more smoothly when your paperwork is ready before your goods arrive. Most delays we see come down to missing or inconsistent documents.",
-      "At a minimum, you'll usually need a commercial invoice showing what you bought and what you paid, a packing list describing how the goods are packed, and the transport document issued for the shipment.",
+      "For imports into Kenya you will need a commercial invoice, a packing list, the bill of lading (or air waybill for air cargo), an import declaration form (IDF), and a PIN certificate for KRA.",
       "Some goods need extra certificates or permits. Requirements depend on the type of product, so check early if you're importing something for the first time.",
       "Make sure the details match across all your documents: descriptions, quantities and values. Small differences can cause questions at clearance. If you're unsure, send your documents to us and we'll check them before your shipment arrives.",
     ],
@@ -532,26 +672,19 @@ export const pages: PagesContent = {
       image: "/images/SeaTransportation.jpg",
     },
     process: {
-      eyebrow: "How We Work",
-      heading: "From Order to Delivery in Four Steps",
-      description: "A simple process with one team looking after your shipment the whole way.",
+      // The shipment journey from the current shinglonglogistics.com site
+      eyebrow: "How It Works",
+      heading: "Your Shipment Journey",
+      description:
+        "From your supplier in China to your doorstep in Kenya — tracked every step of the way.",
       steps: [
-        {
-          title: "Tell us what you're shipping",
-          description: "Share your supplier details, the goods and your timeline, and we'll recommend a route.",
-        },
-        {
-          title: "We collect & consolidate",
-          description: "We pick up from your suppliers in China and prepare your goods for shipping.",
-        },
-        {
-          title: "Shipping & clearance",
-          description: "Your cargo travels by sea or air, and we handle the paperwork for clearance in Kenya.",
-        },
-        {
-          title: "Delivered to your door",
-          description: "We deliver to your shop, warehouse or office and confirm once it has arrived.",
-        },
+        { title: "Request Service", description: "Share supplier & cargo details" },
+        { title: "Warehouse Receipt", description: "Goods received in Guangzhou/Yiwu" },
+        { title: "Shipping Booked", description: "Loaded & departed for Kenya" },
+        { title: "In Transit", description: "Track your cargo in real-time" },
+        { title: "Customs Clearance", description: "Cleared at Mombasa/JKIA" },
+        { title: "Ready for Collection", description: "Pickup from Nairobi office" },
+        { title: "Delivered", description: "Goods in your hands" },
       ],
     },
   },
@@ -578,26 +711,25 @@ export const pages: PagesContent = {
 
 export const home: HomeContent = {
   advantages: {
+    // "Why Shinglong" points from the current shinglonglogistics.com site
+    // (the other three are in `features` below)
     eyebrow: "Why Shinglong",
-    heading: "Why Businesses Ship With Us",
+    heading: "Built for Traders Who Can't Afford Delays",
     items: [
       {
         icon: "globe",
-        title: "Shipment Tracking",
-        description:
-          "Know where your cargo is from the moment it leaves your supplier in China until it reaches you in Nairobi.",
+        title: "Real-time Tracking",
+        description: "Track your cargo from pickup in China to collection in Nairobi, 24/7.",
+      },
+      {
+        icon: "file",
+        title: "Transparent Pricing",
+        description: "Clear per-CBM and per-kg rates. No surprise fees, ever.",
       },
       {
         icon: "headset",
-        title: "Clear Communication",
-        description:
-          "One point of contact who keeps you updated on bookings, schedules and customs status in plain language.",
-      },
-      {
-        icon: "clock",
-        title: "Reliable Timelines",
-        description:
-          "Planned consolidation and departure schedules, so you can plan stock and sales around realistic arrival dates.",
+        title: "Dedicated Agent",
+        description: "One point of contact from quote to delivery — no call-center runaround.",
       },
     ],
     cta: { label: "Learn More", href: "/about" },
@@ -614,12 +746,12 @@ export const home: HomeContent = {
     secondaryCta: { label: "Explore our services", href: "/services" },
   },
 
-  // TODO: replace with real company figures
+  // Figures from the current shinglonglogistics.com services page
   stats: [
-    { icon: "ship", value: 1200, suffix: "+", label: "Shipments delivered" },
-    { icon: "users", value: 500, suffix: "+", label: "Satisfied clients" },
-    { icon: "map", value: 2, label: "Sourcing hubs in China" },
-    { icon: "clock", value: 10, suffix: "+", label: "Years of experience" },
+    { icon: "map", value: 2, label: "China warehouses" },
+    { icon: "ship", value: 1000, suffix: "+", label: "Shipments delivered" },
+    { icon: "clock", value: 45, suffix: " days", label: "Avg sea transit" },
+    { icon: "users", value: 500, suffix: "+", label: "Trusted clients" },
   ],
 
   services: {
@@ -634,19 +766,22 @@ export const home: HomeContent = {
   },
 
   tracking: {
-    eyebrow: "Stay Informed",
+    eyebrow: "Real-time Tracking",
     heading: "Track Your Shipment",
     description:
-      "Every consignment gets a reference number and regular status updates, from collection at the supplier to final delivery. Ask us any time and we'll tell you exactly where your goods are.",
-    shipmentLabel: "Example shipment · Guangzhou → Nairobi",
+      "Every shipment gets a consignment number (in the format CON-YYYY-XXXX), which you'll find on your shipping confirmation email or receipt. Send it to us on WhatsApp and we'll tell you exactly where your goods are.",
+    shipmentLabel: "Example consignment · Guangzhou → Nairobi",
     steps: [
-      { label: "Collected from supplier", location: "Guangzhou", done: true },
-      { label: "Consolidated & departed", location: "China", done: true },
-      { label: "Arrived at port", location: "Mombasa", done: true },
-      { label: "Customs cleared", location: "Kenya", done: false },
-      { label: "Delivered", location: "Nairobi", done: false },
+      { label: "Warehouse receipt", location: "Guangzhou", done: true },
+      { label: "Shipping booked", location: "China", done: true },
+      { label: "In transit", location: "To Mombasa", done: true },
+      { label: "Customs clearance", location: "Mombasa", done: false },
+      { label: "Ready for collection", location: "Nairobi office", done: false },
     ],
-    primaryCta: { label: "Track Shipment", href: "/contact" },
+    primaryCta: {
+      label: "Track on WhatsApp",
+      href: whatsappLink("Hi Shinglong, I'd like an update on my consignment: "),
+    },
     secondaryCta: { label: "Contact Us", href: "/contact" },
   },
 
@@ -656,7 +791,8 @@ export const home: HomeContent = {
     description:
       "We work closely with suppliers, carriers and clearing agents so nothing falls between the cracks.",
     image: "/images/AirTransportation.jpg",
-    // TODO: replace with real performance figures
+    // Not shown at the moment (replaced by the quote calculator) — these
+    // percentages were placeholders. TODO: restore only with real figures.
     skills: [
       { label: "Sea Freight", percent: 90 },
       { label: "Air Freight", percent: 85 },
@@ -666,30 +802,32 @@ export const home: HomeContent = {
     cta: { label: "More About Us", href: "/about" },
   },
 
+  // From the current shinglonglogistics.com site
   features: [
     {
-      icon: "package",
-      title: "Careful Handling",
-      description: "Goods are checked, packed and labelled before they are loaded.",
+      icon: "shield",
+      title: "Licensed & Insured",
+      description: "Fully licensed customs brokers with cargo insurance options on every shipment.",
     },
     {
-      icon: "headset",
-      title: "Customer Support",
-      description: "Reach our team by phone or email whenever you need an update.",
+      icon: "users",
+      title: "Bilingual Support",
+      description: "On-the-ground teams in China and Kenya — we speak your supplier's language.",
+    },
+    {
+      icon: "package",
+      title: "Consolidation",
+      description: "Combine shipments from multiple suppliers into one cost-effective container.",
     },
     {
       icon: "clock",
-      title: "On-Time Delivery",
-      description: "Clear schedules and proactive updates if anything changes.",
-    },
-    {
-      icon: "shield",
-      title: "Secure Cargo",
-      description: "Documented at every handover so your goods are accounted for.",
+      title: "Quotes Within 24 Hours",
+      description: "Get a free, no-obligation quote. Tell us what you're moving and we'll handle the rest.",
     },
   ],
 
-  // TODO: replace with real team members (and add photos)
+  // Not shown at the moment (commented out on the pages) — the current site
+  // has no team details. TODO: add real team members and photos, then restore.
   team: {
     eyebrow: "Our People",
     heading: "Meet the Team",
@@ -702,7 +840,8 @@ export const home: HomeContent = {
     ],
   },
 
-  // TODO: replace with real client testimonials (with their permission)
+  // Not shown at the moment (commented out on the pages) — the current site
+  // has no testimonials. TODO: add real ones (with permission), then restore.
   testimonials: {
     eyebrow: "Client Stories",
     heading: "What Our Clients Say",
@@ -713,7 +852,8 @@ export const home: HomeContent = {
     ],
   },
 
-  // TODO: link these to real articles once the news section exists
+  // The current site has no published articles yet; these are drafts.
+  // TODO: review before launch.
   news: {
     eyebrow: "News & Updates",
     heading: "Latest News",
@@ -734,14 +874,14 @@ export const home: HomeContent = {
       "Tell us what you're shipping and where it's coming from, and we'll get back to you with the best route and price.",
     image: "/images/SeaTransportation.jpg",
     recipient: "info@shinglonglogistics.com",
-    transportTypes: ["Sea Freight", "Air Freight", "Not sure yet"],
-    origins: ["Guangzhou", "Yiwu", "Other"],
+    transportTypes: ["Sea Freight", "Air Freight", "Customs Clearance", "Not sure yet"],
+    origins: ["Guangzhou", "Yiwu", "Already in Kenya", "Other"],
   },
 
   ctaBand: {
-    heading: "Interested in working with Shinglong Logistics?",
+    heading: "Ready to ship smarter from China?",
     description:
-      "Tell us what you're importing and we'll recommend the right service for your cargo and budget.",
+      "Get a free, no-obligation quote within 24 hours. Tell us what you're moving and we'll handle the rest.",
     cta: { label: "Get In Touch", href: "/contact" },
   },
 };
