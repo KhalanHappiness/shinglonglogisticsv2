@@ -115,7 +115,7 @@ export default function Header() {
                   href={item.href}
                   className={
                     isActive(item.href)
-                      ? "border-secondary pb-1 font-semibold text-secondary"
+                      ? "font-semibold text-secondary"
                       : "nav-link text-primary"
                   }
                 >

@@ -98,6 +98,7 @@ export interface PlanningInfrastructureContent {
 }
 
 export const mainNav: NavItem[] = [
+  { label: "Home", href: "/" },
   {
     label: "About Us", href: "/about"},
   { label: "Our Services", href: "/services" },
