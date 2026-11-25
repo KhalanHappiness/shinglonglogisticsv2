@@ -85,7 +85,8 @@ export default function Hero({ hero }: HeroProps) {
                   fill
                   loading="eager"
                   fetchPriority="high"
-                  className="object-cover object-center"
+                  className="object-cover"
+                  style={{ objectPosition: slide.imagePosition ?? "center" }}
                 />
               </div>
             </div>

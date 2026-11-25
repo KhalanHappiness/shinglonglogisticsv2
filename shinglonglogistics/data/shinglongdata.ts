@@ -10,6 +10,8 @@ export interface NavItem {
 
 export interface HeroSlide {
   image: string;
+  // Which part of the photo to keep in view when it's cropped (CSS object-position)
+  imagePosition?: string;
   eyebrow: string;
   // Heading is shown as a light first line and a bold second line;
   // `highlight` (part of the bold line) is shown in brand red
@@ -127,7 +129,9 @@ export const planningInfrastructure: PlanningInfrastructureContent = {
     // Rates and transit times in the slides should match `shippingMethods` below
     slides: [
       {
-        image: "/images/SeaTransportation.jpg",
+        // Portrait photo: keep the whole ship in view on wide screens
+        image: "/images/SeaFreight.jpg",
+        imagePosition: "center 58%",
         eyebrow: "China to Kenya Freight Specialists",
         titleLight: "Your trusted",
         titleBold: "freight forwarding partner",
