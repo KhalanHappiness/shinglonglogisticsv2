@@ -147,7 +147,7 @@ export const planningInfrastructure: PlanningInfrastructureContent = {
         titleBold: "Fly it in from 3 days",
         highlight: "3 days",
         description:
-          "Direct Air for general goods from US$13.50/kg, and Hong Kong Air for branded & special goods.",
+          "Weekly Direct Flights for normal & branded goods taking 3days only at $13.5 & $14 per kg respectively loading every Sunday and Thursday Hongkong Transit Flights for Special goods at $14 per kg only taking 10 days",
         tile: { label: "Air", title: "Freight", meta: "From US$13.50/kg", icon: "plane" },
       },
       {
